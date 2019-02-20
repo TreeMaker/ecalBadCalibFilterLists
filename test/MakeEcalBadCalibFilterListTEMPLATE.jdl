@@ -1,0 +1,29 @@
+universe = vanilla
+Executable = MakeEcalBadCalibFilterList.sh
++REQUIRED_OS = "rhel7"
++DesiredOS = REQUIRED_OS
+request_disk = 100000
+request_memory = 2000
+request_cpus = 1
+Should_Transfer_Files = YES
+WhenToTransferOutput = ON_EXIT_OR_EVICT
+Transfer_Input_Files = CMSSW_9_4_11.tar.gz
+transfer_output_files = RUNNAME_PRIMARYDATASET_ecalBadCalibFilterList.txt
+# transfer_output_remaps = "RUNNAME_PRIMARYDATASET_ecalBadCalibFilterList.txt = $ENV(CMSSW_BASE)/src/TreeMaker/Production/python/RUNNAME/PRIMARYDATASET_ecalBadCalibFilterList.txt"
+Output = MakeEcalBadCalibFilterList_RUNNAME_PRIMARYDATASET_$(Cluster)_$(Process).stdout
+Error = MakeEcalBadCalibFilterList_RUNNAME_PRIMARYDATASET_$(Cluster)_$(Process).stderr
+Log = MakeEcalBadCalibFilterList_RUNNAME_PRIMARYDATASET_$(Cluster)_$(Process).condor
+notification = Never
+x509userproxy = $ENV(X509_USER_PROXY)
+want_graceful_removal = true
+on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)
+on_exit_hold = ( (ExitBySignal == True) || (ExitCode != 0) )
+on_exit_hold_reason = strcat("Job held by ON_EXIT_HOLD due to ",\
+					ifThenElse((ExitBySignal == True), "exit by signal", \
+strcat("exit code ",ExitCode)), ".")
+Args = root://cmsxrootd.fnal.gov/ $(Selectors)
+# $(Filters)
+# Queue Selectors,Filters from (
+Queue Selectors from (
+	  \"RUNNAME\",\"PRIMARYDATASET\"
+)
