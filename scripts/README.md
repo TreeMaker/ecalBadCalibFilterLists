@@ -8,7 +8,7 @@ The selectors will selectors will select for folder or file names with a given s
 
 The filters work in much the same way. If a folder/file contains any of the filter strings, it will be removed from the list of folders/files to consider.
 
-By defult the output files are places in the same folder as the file lists. However, this can be overridden by specifying an outpath as one of the parameters.
+By default the output files are places in the same folder as the file lists. However, this can be overridden by specifying an outpath as one of the parameters.
 
 ### Example
 ```bash
