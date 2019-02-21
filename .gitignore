@@ -1,0 +1,10 @@
+__init__.py
+*.pyc
+*~
+*.so
+
+# condor & log files
+*.stdout
+*.stderr
+*.condor
+*.tar.gz
