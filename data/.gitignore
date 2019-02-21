@@ -1,0 +1,2 @@
+# Don't save the raw text files because they can be very large
+*.txt
