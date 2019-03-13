@@ -5,5 +5,6 @@ WARNING: Some of the code in this repository is dependent upon the TreeMaker rep
 
 ## Repository Contents
 * The [data](data) folder contains the events lists combined by run period for a given year and PD (i.e. [Run2018_MET.txt.gz](data/Run2018_MET.txt.gz)). These files are maintained in gzip files to reduce their size.
+* The [python](python) folder contains the NanoAOD file lists used by the scripts to make the event lists.
 * The [scripts](scripts) folder contains the code necessary to create the event lists. In the future it may also contain other C++ code necessary to create, modify, or maintain the event lists.
 * The [test](test) folder contains the bash scripts and Condor JDL files needed to create a large number of events lists.
