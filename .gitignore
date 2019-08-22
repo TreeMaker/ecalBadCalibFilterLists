@@ -8,8 +8,12 @@ __init__.py
 *.stderr
 *.condor
 *.tar.gz
+*.jdl
 
 # root kibble
 *.d
 *.pcm
 *.o
+
+# other
+/test/checkVomsTar.sh

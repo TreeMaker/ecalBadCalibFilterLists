@@ -7,6 +7,7 @@ To install this code:
 ```
 cd $CMSSW_BASE/TreeMaker
 git clone git@github.com:TreeMaker/ecalBadCalibFilterLists.git
+ln -s $CMSSW_BASE/src/Condor/Production/scripts/checkVomsTar.sh ecalBadCalibFilterLists/test/
 ```
 
 ## Repository Contents

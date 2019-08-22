@@ -9,10 +9,9 @@ echo "CMSSW on Condor"
 # check arguments
 export JOBDIR=${PWD}
 export USER=$(whoami)
-export CMSSWVER="CMSSW_9_4_11"
-export CMSSWLOC="slc7_amd64_gcc630"
+export CMSSWVER="CMSSW_10_2_11_patch1"
+export CMSSWLOC="slc6_amd64_gcc700"
 export CMSSWXRD=""
-#export CMSSWXRD="root://cmseos.fnal.gov//store/user/lpcsusyhad/SusyRA2Analysis2015/Run2ProductionV16/"
 
 echo ""
 echo "parameter set:"
@@ -66,12 +65,13 @@ fi
 eval `scramv1 runtime -sh`
 
 REDIRECTOR=$1
-SELECTORS=$2
+BRANCH=$2
+SELECTORS=$3
 #FILTERS=$3
 
 (set -x;
 cd src/ecalBadCalibFilterLists/scripts/
 ls -lh
-root -n -b -l MakeEcalBadCalibFilterList.C++\(\"$REDIRECTOR\",\"$JOBDIR\",\{$SELECTORS\},{},true,0\)
+root -b -l -q 'MakeEcalBadCalibFilterList.C+("'$REDIRECTOR'","'$JOBDIR'",{'$SELECTORS'},{},"'${BRANCH}'",true,0)'
 ls -lh
 )
