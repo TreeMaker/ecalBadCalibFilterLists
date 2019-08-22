@@ -10,7 +10,12 @@ The filters work in much the same way. If a folder/file contains any of the filt
 
 By default the output files are places in the same folder as the file lists. However, this can be overridden by specifying an outpath as one of the parameters.
 
-### Example
+### Example (compile)
 ```bash
-root -n ../MakeEcalBadCalibFilterList.C+\(\"root://cmsxrootd.fnal.gov/\",\"./\",\{\"2018C-Nano\",\"EGamma\"\},{},true,0\)
+./compile.sh
+```
+
+### Example (run)
+```bash
+root -n -b -l -q 'MakeEcalBadCalibFilterList.C+("root://cmsxrootd.fnal.gov/","./",{"2018C-Nano","EGamma"},{},"Flag_ecalBadCalibFilter",true,0)'
 ```

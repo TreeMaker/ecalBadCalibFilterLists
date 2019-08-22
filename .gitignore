@@ -8,3 +8,8 @@ __init__.py
 *.stderr
 *.condor
 *.tar.gz
+
+# root kibble
+*.d
+*.pcm
+*.o

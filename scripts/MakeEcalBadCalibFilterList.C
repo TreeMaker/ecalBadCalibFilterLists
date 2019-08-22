@@ -46,8 +46,11 @@ void progressbar(unsigned int x, unsigned int n, unsigned int w, std::string pre
 //
 //Example:
 // root -n ../MakeEcalBadCalibFilterList.C+\(\"root://cmsxrootd.fnal.gov/\",\"./\",\{\"2018C-Nano\",\"EGamma\"\},{},true,0\)
-int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.gov/", string outpath = "", vector<string> selectors = {}, vector<string> filters = {},
+int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.gov/", string outpath = "", vector<string> selectors = {}, vector<string> filters = {}, string branch = "Flag_ecalBadCalibFilter",
                                bool progress = true, int debug = 0, string suffix = "_ecalBadCalibFilterList") {
+	//just recompile if no branch given
+	if(branch.empty()) return 0;
+
 	// Setup the basepath where the input folder/files are located
 	string basepath;
 	if(const char* env_p = std::getenv("CMSSW_BASE")) {
@@ -210,17 +213,17 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 				c->SetBranchStatus("run",1);
 				c->SetBranchStatus("event",1);
 				c->SetBranchStatus("luminosityBlock",1);
-				c->SetBranchStatus("Flag_ecalBadCalibFilter",1);
+				c->SetBranchStatus(branch.c_str(),1);
 
 				// Set up the access to the TChain
 				int run(0),luminosityBlock(0);
 				long event(0);
-				bool ecalBadCalibFilter(1);
+				bool filterResult(1);
 				long failed_events(0);
 				c->SetBranchAddress("run",&run);
 				c->SetBranchAddress("luminosityBlock",&luminosityBlock);
 				c->SetBranchAddress("event",&event);
-				c->SetBranchAddress("Flag_ecalBadCalibFilter",&ecalBadCalibFilter);
+				c->SetBranchAddress(branch.c_str(),&filterResult);
 
 				// Setup the output file for this dataset
 				ofstream outf;
@@ -251,7 +254,7 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 						if(ientry==nentries-1) cout << endl;
 					}
 					c->GetEntry(ientry);
-					if(ecalBadCalibFilter==1) continue;
+					if(filterResult==1) continue;
 					outf << run << ":" << luminosityBlock << ":" << event << endl;
 					failed_events++;
 				}
@@ -260,7 +263,7 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 					cout << "DONE" << "  (CPU: " << benchmark->GetCpuTime("dataset") << "s | Real: " << benchmark->GetRealTime("dataset") << "s) (CPU: "
 						 << nentries/benchmark->GetCpuTime("dataset") << "<evts/s> | Real: " << nentries/benchmark->GetRealTime("dataset") << "<evts/s>)\r" << endl;
 				}
-				cout << "\t" << failed_events << " events failed the ecalBadCalibFilter." << endl;
+				cout << "\t" << failed_events << " events failed " << branch << "." << endl;
 				cout << "\t" << "Written to file " << outfilename << endl << endl;
 
 				outf.close();
