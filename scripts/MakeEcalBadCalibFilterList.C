@@ -40,9 +40,9 @@ void progressbar(unsigned int x, unsigned int n, unsigned int w, std::string pre
 
 //Notes:
 // Selects/filters on files and folder separately.
-// Selects fif any of the words included, not all of them.
-// By defult the output files are places in the same folder as the file lists.
-//  This can be overridden by specifying an outpath.
+// Selects if any of the words included, not all of them.
+// By default the output files are places in the same folder as the file lists.
+// This can be overridden by specifying an outpath.
 //
 //Example:
 // root -n ../MakeEcalBadCalibFilterList.C+\(\"root://cmsxrootd.fnal.gov/\",\"./\",\{\"2018C-Nano\",\"EGamma\"\},{},true,0\)
@@ -163,7 +163,7 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 		for (auto pd : folder.second) {
 			string current_dataset = basepath+folder.first+pd+"_cff.py";
 			if (exists(current_dataset)) {
-				cout << "Makeing list for " << current_dataset << " ... " << flush;
+				cout << "Making list for " << current_dataset << " ... " << flush;
 				if (progress) cout << endl;
 
 				// Reset the TBenchmark
