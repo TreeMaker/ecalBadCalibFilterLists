@@ -2,7 +2,7 @@
 In here you will find the scripts necessary to make the ecalBadCalibFilter event lists.
 
 ## MakeEcalBadCalibFilterList.C
-This code relies upon the NanoAOD file lists which would be located in $CMSSW_BASE/src/TreeMaker/Production/python. In the current version of the code this basepath is fixed. And while the code can technically take any file list, only the NanoAOD trees will have the necessary branches. Therefore, the user should take special note to filter out any non-NanoAOD file lists. This can be accomplished through the use of the selector and filter lists.
+This code relies upon the NanoAOD file lists which would be located in $CMSSW_BASE/src/TreeMaker/ecalBadCalibFilterLists/python. In the current version of the code this basepath is fixed. And while the code can technically take any file list, only the NanoAOD trees will have the necessary branches. Therefore, the user should take special note to filter out any non-NanoAOD file lists. This can be accomplished through the use of the selector and filter lists.
 
 The selectors will selectors will select for folder or file names with a given string. This is an inclusive list, so a folder/file need only contain one of the selectors to be added to the selected list.
 

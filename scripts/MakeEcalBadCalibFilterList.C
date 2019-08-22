@@ -52,7 +52,7 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 	string basepath;
 	if(const char* env_p = std::getenv("CMSSW_BASE")) {
 		basepath = env_p;
-		basepath += "/src/TreeMaker/Production/python/";
+		basepath += "/src/TreeMaker/ecalBadCalibFilterLists/python/";
 		cout << "Basepath: " << basepath << endl << endl;
 	}
 

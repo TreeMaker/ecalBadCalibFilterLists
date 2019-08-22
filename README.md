@@ -3,6 +3,12 @@ This repository contains the compressed event lists for the updated ecalBadCalib
 
 WARNING: Some of the code in this repository is dependent upon the TreeMaker repository. You may first want to follow the instructions [here](https://github.com/TreeMaker/TreeMaker) on how to set up TreeMaker.
 
+To install this code:
+```
+cd $CMSSW_BASE/TreeMaker
+git clone git@github.com:TreeMaker/ecalBadCalibFilterLists.git
+```
+
 ## Repository Contents
 * The [data](data) folder contains the events lists combined by run period for a given year and PD (i.e. [Run2018_MET.txt.gz](data/Run2018_MET.txt.gz)). These files are maintained in gzip files to reduce their size.
 * The [python](python) folder contains the NanoAOD file lists used by the scripts to make the event lists.
