@@ -70,8 +70,17 @@ SELECTORS=$3
 #FILTERS=$3
 
 (set -x;
-cd src/ecalBadCalibFilterLists/scripts/
+cd src/TreeMaker/ecalBadCalibFilterLists/scripts/
+
 ls -lh
+
 root -b -l -q 'MakeEcalBadCalibFilterList.C+("'$REDIRECTOR'","'$JOBDIR'",{'$SELECTORS'},{},"'${BRANCH}'",true,0)'
+ROOTEXIT=$?
+if [[ $ROOTEXIT -ne 0 ]]; then
+	rm *.txt
+	echo "exit code $ROOTEXIT"
+	exit $ROOTEXIT
+fi
+
 ls -lh
 )
