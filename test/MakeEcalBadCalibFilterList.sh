@@ -66,7 +66,8 @@ eval `scramv1 runtime -sh`
 
 REDIRECTOR=$1
 BRANCH=$2
-SELECTORS=$3
+MCSIM=$3
+SELECTORS=$4
 #FILTERS=$3
 
 (set -x;
@@ -74,7 +75,7 @@ cd src/TreeMaker/ecalBadCalibFilterLists/scripts/
 
 ls -lh
 
-root -b -l -q 'MakeEcalBadCalibFilterList.C+("'$REDIRECTOR'","'$JOBDIR'",{'$SELECTORS'},{},"'${BRANCH}'",true,0)'
+root -b -l -q 'MakeEcalBadCalibFilterList.C+("'$REDIRECTOR'","'$JOBDIR'",{'$SELECTORS'},{},"'${BRANCH}'",'${MCSIM}',true,0)'
 ROOTEXIT=$?
 if [[ $ROOTEXIT -ne 0 ]]; then
 	rm *.txt

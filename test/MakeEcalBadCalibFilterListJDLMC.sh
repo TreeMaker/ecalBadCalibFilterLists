@@ -1,14 +1,12 @@
 #!/bin/bash
 
-source data.sh
+source mc.sh
 
 BRANCH=Flag_EcalDeadCellBoundaryEnergyFilter
 
 for folder in "${folders[@]}"; do
-	if [[ $folder == "Run2018"* ]]; then
-		declare pds=("${pds_2018[@]}") 
-	else
-		declare pds=("${pds_2016_2017[@]}")
+	if [[ $folder == *Summer16* ]]; then
+		declare pds=("${pds_Summer16[@]}")
 	fi
 
 	for pd in "${pds[@]}"; do
@@ -17,7 +15,7 @@ for folder in "${folders[@]}"; do
 		sed -i "s/RUNNAME/${folder}/g" ${jdl_name}
 		sed -i "s/PRIMARYDATASET/${pd}/g" ${jdl_name}
 		sed -i "s/BRANCHNAME/${BRANCH}/g" ${jdl_name}
-		sed -i "s/MCSIM/0/g" ${jdl_name}
+		sed -i "s/MCSIM/1/g" ${jdl_name}
 		condor_submit ${jdl_name}
 	done
 done

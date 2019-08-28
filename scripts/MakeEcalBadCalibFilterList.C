@@ -47,7 +47,7 @@ void progressbar(unsigned int x, unsigned int n, unsigned int w, std::string pre
 //Example:
 // root -n ../MakeEcalBadCalibFilterList.C+\(\"root://cmsxrootd.fnal.gov/\",\"./\",\{\"2018C-Nano\",\"EGamma\"\},{},true,0\)
 int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.gov/", string outpath = "", vector<string> selectors = {}, vector<string> filters = {}, string branch = "Flag_ecalBadCalibFilter",
-                               bool progress = true, int debug = 0, string suffix = "_ecalBadCalibFilterList") {
+                               bool mc = false, bool progress = true, int debug = 0, string suffix = "_ecalBadCalibFilterList") {
 	//just recompile if no branch given
 	if(branch.empty()) return 0;
 
@@ -183,7 +183,7 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 				std::string line;
 				vector<string> files;
 				while (std::getline(inf, line)) {
-					if(line.find("/store/data")==string::npos) continue;
+					if(line.find("/store/")==string::npos) continue;
 					line = line.substr(0,line.rfind('\''));
 					line = line.substr(line.find("/store"));
 					line = redirector+line;
@@ -225,6 +225,13 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 				c->SetBranchAddress("event",&event);
 				c->SetBranchAddress(branch.c_str(),&filterResult);
 
+				//extra qty for mc
+				float genMET(0.);
+				if(mc){
+					c->SetBranchStatus("GenMET_pt",1);
+					c->SetBranchAddress("GenMET_pt",&genMET);
+				}
+
 				// Setup the output file for this dataset
 				ofstream outf;
 				string outfilename;
@@ -255,7 +262,9 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 					}
 					c->GetEntry(ientry);
 					if(filterResult==1) continue;
-					outf << run << ":" << luminosityBlock << ":" << event << endl;
+					outf << run << ":" << luminosityBlock << ":" << event;
+					if(mc) outf << ":" << int(genMET);
+					outf << endl;
 					failed_events++;
 				}
 
