@@ -75,7 +75,7 @@ cd src/TreeMaker/ecalBadCalibFilterLists/scripts/
 
 ls -lh
 
-root -b -l -q 'MakeEcalBadCalibFilterList.C+("'$REDIRECTOR'","'$JOBDIR'",{'$SELECTORS'},{},"'${BRANCH}'",'${MCSIM}',true,0)'
+root -b -l -q 'MakeEcalBadCalibFilterList.C+("'$REDIRECTOR'","'$JOBDIR'",{'$SELECTORS'},{},"'${BRANCH}'",'${MCSIM}',true,0)' 2>&1
 ROOTEXIT=$?
 if [[ $ROOTEXIT -ne 0 ]]; then
 	rm *.txt
