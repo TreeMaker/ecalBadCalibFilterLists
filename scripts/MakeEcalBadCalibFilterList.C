@@ -191,7 +191,7 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 				}
 				inf.close();
 
-				// Setup the TCahin
+				// Setup the TChain
 				TChain * c = new TChain("Events");
 				int nfiles = files.size();
 				int nfiles_added = 0;
@@ -226,10 +226,10 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 				c->SetBranchAddress(branch.c_str(),&filterResult);
 
 				//extra qty for mc
-				float genMET(0.);
+				float genjet[1000];
 				if(mc){
-					c->SetBranchStatus("GenMET_pt",1);
-					c->SetBranchAddress("GenMET_pt",&genMET);
+					c->SetBranchStatus("GenJet_pt",1);
+					c->SetBranchAddress("GenJet_pt", genjet);
 				}
 
 				// Setup the output file for this dataset
@@ -263,7 +263,9 @@ int MakeEcalBadCalibFilterList(string redirector = "root://cmsxrootd-site.fnal.g
 					c->GetEntry(ientry);
 					if(filterResult==1) continue;
 					outf << run << ":" << luminosityBlock << ":" << event;
-					if(mc) outf << ":" << int(genMET);
+					if(mc){
+						outf << ":" << int(genjet[0]);
+					}
 					outf << endl;
 					failed_events++;
 				}
